@@ -11,8 +11,8 @@ class App extends Component {
     this.state = {
       faces: "",
       date: "",
-      listFaces:[],
-      message:""
+      listFaces: [],
+      message: ""
     }
     this.handleDateValue = this.handleDateValue.bind(this);
     this.handleFaceValue = this.handleFaceValue.bind(this);
@@ -20,24 +20,24 @@ class App extends Component {
     this.saveInfoFaces = this.saveInfoFaces.bind(this);
   };
 
-  componentDidMount(){
-   this.getSaveData() 
+  componentDidMount() {
+    this.getSaveData()
   }
 
 
+  savedData(data) {
+    localStorage.setItem('localList', JSON.stringify(data));
+  }
+
   getSaveData() {
-    const userInfo = localStorage.getItem('savedFaces');
-    if(userInfo !== null) {
+    const userInfo = JSON.parse(localStorage.getItem('localList'));
+    if (userInfo !== null) {
       return (
         this.setState({
           listFaces: userInfo
         })
       )
     }
-  }
-
-  savedData(data) {
-    localStorage.setItem('savedFaces', JSON.stringify(data));
   }
 
 
@@ -49,7 +49,7 @@ class App extends Component {
     })
   }
 
-  handleFaceValue(event){
+  handleFaceValue(event) {
     const userFace = event.currentTarget.value;
     console.log("userFace", userFace);
     this.setState({
@@ -65,6 +65,9 @@ class App extends Component {
     })
   }
 
+  componentDidUpdate() {
+    this.savedData(this.state.listFaces);
+  }
 
   saveInfoFaces(event) {
     event.preventDefault();
@@ -79,19 +82,15 @@ class App extends Component {
     };
     console.log("new", newFacesList)
 
-    if(newFacesList.userFaces !== "" && newFacesList.userDate !== "" && newFacesList.userMessage !== "") {
-      return(
-      this.setState(prevState => ({
-        listFaces: [...prevState.listFaces, newFacesList]
-      }))
+    if (newFacesList.userFaces !== "" && newFacesList.userDate !== "" && newFacesList.userMessage !== "") {
+      return (
+        this.setState(prevState => ({
+          listFaces: [...prevState.listFaces, newFacesList]
+        }))
       );
-      
-      
     }
-
-   
   }
-  
+
 
   render() {
     console.log("hola", this.state.listFaces)
@@ -104,18 +103,18 @@ class App extends Component {
           <Switch>
             <Route exact path="/" render={() =>
               <Listado
-              listFaces={this.state.listFaces}
+                listFaces={this.state.listFaces}
               />}
             />
             <Route path="/editor" render={() =>
-              <Editor 
-              changeDate={this.handleDateValue}
-              changeFace={this.handleFaceValue}
-              saveInfo={this.saveInfoFaces}
-              message={this.handleTextValue}
-              messageValue={this.state.message}
-              faces={this.state.faces}
-              date={this.state.date}
+              <Editor
+                changeDate={this.handleDateValue}
+                changeFace={this.handleFaceValue}
+                saveInfo={this.saveInfoFaces}
+                message={this.handleTextValue}
+                messageValue={this.state.message}
+                faces={this.state.faces}
+                date={this.state.date}
               />}
             />
           </Switch>
