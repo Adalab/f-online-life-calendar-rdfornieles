@@ -55,16 +55,6 @@ class App extends Component {
       faces: userFace
     });
 
-    // if(userFace === "happy"){
-    //   this.setState({
-    //     face:":)"
-    //   })
-    // } else if (userFace === "sad") {
-    //   this.setState({
-    //     face:":("
-    //   })
-    // }
-    
   }
 
   handleTextValue(event) {
@@ -110,10 +100,7 @@ class App extends Component {
       
     }
 
-    // this.setState(prevState => ({
-    //   listFaces: prevState.list.concat(newFacesList)
-    // }))
- 
+   
   }
   
 
