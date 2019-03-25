@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Editor.scss';
 import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 
 class Editor extends Component {
     
@@ -13,7 +14,11 @@ class Editor extends Component {
                     className= "input-date"
                     id= "date"
                     type= "date"
-                    value= "2019/03/22" />
+                    value= {this.props.valueDate}
+                    step="1"
+                    onChange={this.props.changeDate}
+                    />
+                    
                     <h2>¿Cuál es tu estado hoy?</h2>
                     <label className= "input-face_title" htmlFor="happy-face">
                     <input 
@@ -22,6 +27,7 @@ class Editor extends Component {
                     type= "checkbox"
                     value= "happy"
                     name= "faces"
+                    onChange={this.props.changeFace}
                     />
                     :)
                     </label>
@@ -32,6 +38,7 @@ class Editor extends Component {
                     type= "checkbox"
                     value= "sad"
                     name= "faces"
+                    onChange={this.props.changeFace}
                     />
                     :(
                     </label>
@@ -41,10 +48,18 @@ class Editor extends Component {
                     placeholder="Deja aquí tu mensaje..."
                     type= "text"
                     name= "message"
-                    value= ""
+                    value= {this.props.messageValue}
+                    onChange={this.props.message}
                     />
-                    <input type="submit" value="Guardar"></input>
+                    <Link to="/">
+                    <input 
+                    type="submit" 
+                    value="Guardar" 
+                    onChange={this.props.submitInfo}></input>
+                    </Link>
+                    <Link to="/">
                     <input type="submit" value="Cancelar" />
+                    </Link>
                 </form>
             </section>
          );
