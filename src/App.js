@@ -17,30 +17,24 @@ class App extends Component {
     this.handleDateValue = this.handleDateValue.bind(this);
     this.handleFaceValue = this.handleFaceValue.bind(this);
     this.handleTextValue = this.handleTextValue.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.saveInfoFaces = this.saveInfoFaces.bind(this);
   };
 
   componentDidMount(){
-    return(
-      this.setState({
-        listFaces: this.getSaveData()
-      })
-    )
-    
+   this.getSaveData() 
   }
 
   savedData(data) {
     localStorage.setItem('savedFaces', JSON.stringify(data));
-    console.log(data);
   }
 
   getSaveData() {
-    const userInfo = localStorage.getItem('savedFaces');
+    const userInfo = JSON.parse(localStorage.getItem('savedFaces'));
     if(userInfo !== null) {
-      return JSON.parse(userInfo);
-    } else {
       return (
-       []
+        this.setState({
+          listFaces: userInfo
+        })
       )
     }
   }
@@ -57,15 +51,19 @@ class App extends Component {
   handleFaceValue(event){
     const userFace = event.currentTarget.value;
     console.log("userFace", userFace);
-    if(userFace === "happy"){
-      this.setState({
-        face:":)"
-      })
-    } else if (userFace === "sad") {
-      this.setState({
-        face:":("
-      })
-    }
+    this.setState({
+      faces: userFace
+    });
+
+    // if(userFace === "happy"){
+    //   this.setState({
+    //     face:":)"
+    //   })
+    // } else if (userFace === "sad") {
+    //   this.setState({
+    //     face:":("
+    //   })
+    // }
     
   }
 
@@ -76,8 +74,24 @@ class App extends Component {
     })
   }
 
-  handleSubmit() {
-    const { message, faces, date } = this.state;
+  checkDate() {
+    const { listFaces } = this.state;
+    for (const date of listFaces) {
+      if(this.state.date === date.date){
+        return true;
+      }
+    }
+  }
+
+  checkFaces() {
+    if (this.state.faces === '') {
+      return true
+    }
+  }
+
+
+  saveInfoFaces() {
+    let { message, faces, date } = this.state;
 
     const newFacesList = {
       userFaces: faces,
@@ -85,15 +99,26 @@ class App extends Component {
       userMessage: message
     };
 
-    this.setState(prevState => ({
-      listFaces: prevState.list.concat(newFacesList)
-    }))
+    if(faces === "sad") {
+      message = ""
+    }
+
+    if(!this.checkDate() && !this.checkFaces() && !(date === "")){
+      this.setState(prevState => ({
+        ListFaces: [...prevState.ListFaces, newFacesList]
+      }));
+      this.props.history.push("/");
+    }
+
+    // this.setState(prevState => ({
+    //   listFaces: prevState.list.concat(newFacesList)
+    // }))
  
   }
   
 
   render() {
-
+    console.log("hola", this.state.listFaces)
     return (
       <div className="App">
         <header className="App-header">
@@ -110,9 +135,11 @@ class App extends Component {
               <Editor 
               changeDate={this.handleDateValue}
               changeFace={this.handleFaceValue}
-              submitInfo={this.handleSubmit}
+              saveInfo={this.saveInfoFaces}
               message={this.handleTextValue}
               messageValue={this.state.message}
+              faces={this.state.faces}
+              date={this.state.date}
               />}
             />
           </Switch>

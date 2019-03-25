@@ -14,7 +14,7 @@ class Editor extends Component {
                     className= "input-date"
                     id= "date"
                     type= "date"
-                    value= {this.props.valueDate}
+                    value= {this.props.date}
                     step="1"
                     onChange={this.props.changeDate}
                     />
@@ -28,6 +28,7 @@ class Editor extends Component {
                     value= "happy"
                     name= "faces"
                     onChange={this.props.changeFace}
+                    checked={this.props.faces==="happy"?true:false}
                     />
                     :)
                     </label>
@@ -39,6 +40,7 @@ class Editor extends Component {
                     value= "sad"
                     name= "faces"
                     onChange={this.props.changeFace}
+                    checked={this.props.faces==="sad"?true:false}
                     />
                     :(
                     </label>
@@ -55,7 +57,7 @@ class Editor extends Component {
                     <input 
                     type="submit" 
                     value="Guardar" 
-                    onChange={this.props.submitInfo}></input>
+                    onChange={this.props.saveInfo}></input>
                     </Link>
                     <Link to="/">
                     <input type="submit" value="Cancelar" />
