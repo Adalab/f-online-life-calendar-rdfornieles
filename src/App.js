@@ -95,7 +95,7 @@ class App extends Component {
 
     if(!this.checkDate() && !this.checkFaces() && !(date === "")){
       this.setState(prevState => ({
-        ListFaces: [...prevState.ListFaces, newFacesList]
+        ListFaces: [...prevState.listFaces, newFacesList]
       }));
       
     }
