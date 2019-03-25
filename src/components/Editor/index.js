@@ -25,7 +25,7 @@ class Editor extends Component {
                     className= "input-face"
                     id= "happy-face"
                     type= "checkbox"
-                    value= "happy"
+                    value= ":)"
                     name= "faces"
                     onChange={this.props.changeFace}
                     checked={this.props.faces==="happy"?true:false}
@@ -37,7 +37,7 @@ class Editor extends Component {
                     className= "input-face"
                     id= "sad-face"
                     type= "checkbox"
-                    value= "sad"
+                    value= ":("
                     name= "faces"
                     onChange={this.props.changeFace}
                     checked={this.props.faces==="sad"?true:false}
@@ -53,12 +53,10 @@ class Editor extends Component {
                     value= {this.props.messageValue}
                     onChange={this.props.message}
                     />
-                    <Link to="/">
                     <input 
                     type="submit" 
                     value="Guardar" 
-                    onChange={this.props.saveInfo}></input>
-                    </Link>
+                    onClick={this.props.saveInfo}></input>
                     <Link to="/">
                     <input type="submit" value="Cancelar" />
                     </Link>

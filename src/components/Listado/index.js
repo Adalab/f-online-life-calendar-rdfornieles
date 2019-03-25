@@ -14,7 +14,7 @@ class Listado extends Component {
                 </Link>
                 <div>
                     <ul>
-                        {/* {this.props.listFaces.map((item, index) => {
+                        {this.props.listFaces.map((item, index) => {
                             return (
                                 <li key={index}>
                                 <div>{item.userFaces}</div>
@@ -22,7 +22,7 @@ class Listado extends Component {
                                 <div>{item.userMessage}</div>
                                 </li>
                             )
-                        })} */}
+                        })}
                     </ul>
                 </div>
 

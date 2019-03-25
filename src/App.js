@@ -24,12 +24,9 @@ class App extends Component {
    this.getSaveData() 
   }
 
-  savedData(data) {
-    localStorage.setItem('savedFaces', JSON.stringify(data));
-  }
 
   getSaveData() {
-    const userInfo = JSON.parse(localStorage.getItem('savedFaces'));
+    const userInfo = localStorage.getItem('savedFaces');
     if(userInfo !== null) {
       return (
         this.setState({
@@ -37,6 +34,10 @@ class App extends Component {
         })
       )
     }
+  }
+
+  savedData(data) {
+    localStorage.setItem('savedFaces', JSON.stringify(data));
   }
 
 
@@ -64,39 +65,27 @@ class App extends Component {
     })
   }
 
-  checkDate() {
-    const { listFaces } = this.state;
-    for (const date of listFaces) {
-      if(this.state.date === date.date){
-        return true;
-      }
-    }
-  }
 
-  checkFaces() {
-    if (this.state.faces === '') {
-      return true
-    }
-  }
+  saveInfoFaces(event) {
+    event.preventDefault();
 
-
-  saveInfoFaces() {
     let { message, faces, date } = this.state;
+    console.log("titi", message, faces, date)
 
     const newFacesList = {
       userFaces: faces,
       userDate: date,
       userMessage: message
     };
+    console.log("new", newFacesList)
 
-    if(faces === "sad") {
-      message = ""
-    }
-
-    if(!this.checkDate() && !this.checkFaces() && !(date === "")){
+    if(newFacesList.userFaces !== "" && newFacesList.userDate !== "" && newFacesList.userMessage !== "") {
+      return(
       this.setState(prevState => ({
-        ListFaces: [...prevState.listFaces, newFacesList]
-      }));
+        listFaces: [...prevState.listFaces, newFacesList]
+      }))
+      );
+      
       
     }
 
