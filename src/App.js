@@ -107,7 +107,7 @@ class App extends Component {
       this.setState(prevState => ({
         ListFaces: [...prevState.ListFaces, newFacesList]
       }));
-      this.props.history.push("/");
+      
     }
 
     // this.setState(prevState => ({
